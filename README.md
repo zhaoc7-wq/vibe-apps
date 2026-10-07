@@ -11,6 +11,11 @@
 | 艺术疗愈小工具 | 构思中 | `apps/art-healing/` |
 | 学习生活 / 艺术追踪器 | 构思中 | `apps/life-art-tracker/` |
 
+## 访问入口
+
+- 网站根目录（`index.html`）会自动跳转到英伦腔调 App。
+- 产品集合页保留在 `hub.html`，以后产品多了可以当导航用。
+
 ## 本地运行
 
 直接用浏览器双击打开 `index.html` 即可；
