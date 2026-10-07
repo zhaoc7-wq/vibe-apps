@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>英伦腔调 British Buddy · 学地道英式英语</title>
+<style>
+:root{--navy:#1b2a4a;--red:#c8102e;--bg:#f7f5f0;--line:#e8e4da;--muted:#6b7280}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:#222}
+header{background:var(--navy);color:#fff;padding:30px 20px;text-align:center}
+header h1{margin:0;font-size:26px;letter-spacing:1px}
+header p{opacity:.72;margin:10px 0 0;font-size:13px;line-height:1.7}
+.wrap{max-width:760px;margin:0 auto;padding:16px 16px 110px}
+.search{width:100%;padding:14px 16px;font-size:16px;border:1px solid var(--line);border-radius:12px;background:#fff;outline:none}
+.search:focus{border-color:var(--navy)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 15px;font-size:13px;cursor:pointer;color:#444}
+.chip.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.count{font-size:12px;color:var(--muted);margin:4px 2px 0}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:12px 0}
+.topline{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.uk{font-size:25px;font-weight:700;color:var(--navy)}
+.pos{font-size:12px;color:var(--muted);font-style:italic}
+.ipa{font-size:14px;color:#8a8577;margin-top:2px}
+.zh{font-size:16px;margin-top:8px}
+.us{display:block;font-size:13px;color:var(--muted);margin-top:4px}
+.ex{margin-top:10px;font-size:14px;background:#faf8f3;border-left:3px solid var(--red);padding:10px 12px;border-radius:0 8px 8px 0;line-height:1.7}
+.exzh{font-size:13px;color:var(--muted);margin-top:4px}
+.tip{margin-top:10px;font-size:13px;color:#8a5a00;background:#fff8e6;border-radius:8px;padding:8px 12px;line-height:1.7}
+.say{border:1px solid var(--line);background:#fff;border-radius:999px;padding:4px 12px;font-size:12px;cursor:pointer;color:var(--navy);margin-left:6px}
+.say:hover{border-color:var(--navy)}
+.learn{margin-top:12px;border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 18px;font-size:14px;cursor:pointer}
+.learn.got{background:#e7f4ea;border-color:#bfe3c7;color:#1c7a33}
+.empty{text-align:center;color:var(--muted);padding:40px 0;font-size:14px}
+.tabbar{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);display:flex;z-index:10}
+.tabbar button{flex:1;padding:14px;font-size:15px;background:none;border:none;cursor:pointer;color:var(--muted)}
+.tabbar button.on{color:var(--red);font-weight:700}
+.flash{background:#fff;border:1px solid var(--line);border-radius:16px;min-height:300px;display:flex;align-items:center;justify-content:center;cursor:pointer;margin-top:8px;padding:30px 20px;text-align:center}
+.f-zh{font-size:30px;font-weight:700}
+.f-hint{margin-top:14px;font-size:13px;color:var(--muted);line-height:2}
+.f-uk{font-size:34px;font-weight:700;color:var(--navy)}
+.f-ex{margin-top:12px;font-size:15px;color:#444;line-height:1.8}
+.frow{display:flex;gap:10px;margin-top:14px}
+.frow button{flex:1;padding:13px;border-radius:12px;font-size:15px;cursor:pointer;border:1px solid var(--line);background:#fff}
+#btnKnow{background:var(--navy);color:#fff;border-color:var(--navy)}
+.hintline{text-align:center;font-size:12px;color:var(--muted);margin-top:12px}
+.stat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;margin-top:8px}
+.stat .big{font-size:40px;font-weight:700;color:var(--navy)}
+.bar{height:10px;background:#eee9dc;border-radius:999px;margin:12px 0 6px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--red);border-radius:999px;transition:width .3s}
+.lrow{display:flex;justify-content:space-between;align-items:center;background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:8px 0;font-size:14px}
+.lrow button{border:1px solid var(--line);background:#fff;border-radius:8px;padding:5px 12px;font-size:12px;cursor:pointer;color:var(--muted)}
+.reset{width:100%;margin-top:16px;padding:12px;border:1px solid var(--line);background:#fff;border-radius:10px;color:var(--muted);font-size:14px;cursor:pointer}
+.backhome{display:block;text-align:center;margin-top:26px;font-size:13px;color:var(--muted);text-decoration:none}
+</style>
+</head>
+<body>
+<header>
+<h1>英伦腔调 British Buddy</h1>
+<p>查一个词，学会地道的英式说法<br>朗读使用你设备上的英式英语语音</p>
+</header>
+<div class="wrap">
+
+<section id="sec-search">
+<input id="q" class="search" placeholder="搜中文 / 美式 / 英式，比如：电梯、elevator、lift">
+<div class="chips" id="chips"></div>
+<p class="count" id="count"></p>
+<div id="cards"></div>
+</section>
+
+<section id="sec-flash" hidden>
+<div class="flash" id="flash"><div id="fInner"></div></div>
+<p class="hintline" id="fCount"></p>
+<div class="frow">
+<button id="btnHard">还不会</button>
+<button id="btnKnow">记住了 ✓</button>
+<button id="btnNext">换一张</button>
+</div>
+<p class="hintline">点卡片翻面 · 单词卡优先抽未掌握的词</p>
+</section>
+
+<section id="sec-me" hidden>
+<div class="stat">
+<div class="big"><span id="mGot">0</span><span style="font-size:18px;color:#999"> / </span><span id="mTotal" style="font-size:18px;color:#999">0</span></div>
+<div style="font-size:13px;color:#6b7280;margin-top:4px">已掌握词条</div>
+<div class="bar"><i id="mBar" style="width:0"></i></div>
+<div style="font-size:13px;color:#6b7280" id="mPct">0%</div>
+</div>
+<div id="learnedList" style="margin-top:14px"></div>
+<button class="reset" id="btnReset">清空学习记录</button>
+</section>
+
+<a class="backhome" href="../../">← 回到产品集合</a>
+</div>
+
+<nav class="tabbar">
+<button data-tab="sec-search" class="on">查词</button>
+<button data-tab="sec-flash">单词卡</button>
+<button data-tab="sec-me">我的进度</button>
+</nav>
+
+<script>
+const CATS={all:"全部",food:"食物",transport:"出行交通",home:"家居",clothes:"服装",daily:"日常",school:"校园",expr:"地道表达"};
+const DATA=[
+{c:"food",us:"cookie",uk:"biscuit",zh:"饼干",ipa:"/ˈbɪskɪt/",pos:"n.",ex:"Would you like a biscuit with your tea?",exzh:"要来块饼干配茶吗？",tip:""},
+{c:"food",us:"French fries",uk:"chips",zh:"炸薯条",ipa:"/tʃɪps/",pos:"n.",ex:"Fish and chips is a British classic.",exzh:"炸鱼薯条是英国经典。",tip:"英国的 chips 偏厚；细长的有时也叫 fries。"},
+{c:"food",us:"candy",uk:"sweets",zh:"糖果",ipa:"/swiːts/",pos:"n.",ex:"The kids bought some sweets.",exzh:"孩子们买了些糖果。",tip:""},
+{c:"food",us:"eggplant",uk:"aubergine",zh:"茄子",ipa:"/ˈəʊbəʒiːn/",pos:"n.",ex:"Slice the aubergine and roast it.",exzh:"把茄子切片烤一下。",tip:"源自法语，英式常用。"},
+{c:"food",us:"zucchini",uk:"courgette",zh:"西葫芦",ipa:"/kʊəˈʒet/",pos:"n.",ex:"Add the sliced courgette to the pan.",exzh:"把切好的西葫芦下锅。",tip:"源自法语。"},
+{c:"food",us:"cilantro",uk:"coriander",zh:"香菜",ipa:"/ˌkɒriˈændə/",pos:"n.",ex:"Garnish with fresh coriander.",exzh:"用新鲜香菜点缀。",tip:""},
+{c:"food",us:"arugula",uk:"rocket",zh:"芝麻菜",ipa:"/ˈrɒkɪt/",pos:"n.",ex:"a fresh rocket salad",exzh:"一份新鲜的芝麻菜沙拉",tip:""},
+{c:"food",us:"shrimp",uk:"prawn",zh:"虾",ipa:"/prɔːn/",pos:"n.",ex:"Garlic prawns for starters.",exzh:"蒜蓉虾当前菜。",tip:""},
+{c:"food",us:"appetizer",uk:"starter",zh:"前菜",ipa:"/ˈstɑːtə/",pos:"n.",ex:"What are you having for your starter?",exzh:"前菜你点什么？",tip:""},
+{c:"food",us:"dessert",uk:"pudding",zh:"甜点",ipa:"/ˈpʊdɪŋ/",pos:"n.",ex:"What's for pudding?",exzh:"甜点吃什么？",tip:"pudding 可泛指一切甜点，不只是布丁。"},
+{c:"food",us:"takeout",uk:"takeaway",zh:"外卖",ipa:"/ˈteɪkəweɪ/",pos:"n.",ex:"Let's order a takeaway tonight.",exzh:"今晚点个外卖吧。",tip:""},
+{c:"food",us:"check (the bill)",uk:"bill",zh:"账单",ipa:"/bɪl/",pos:"n.",ex:"Could we have the bill, please?",exzh:"麻烦买单。",tip:"在餐厅说 check，英国服务员可能愣一下。"},
+{c:"food",us:"soda",uk:"fizzy drink",zh:"碳酸饮料",ipa:"/ˌfɪzi ˈdrɪŋk/",pos:"n.",ex:"Do you want a fizzy drink?",exzh:"来杯碳酸饮料吗？",tip:""},
+{c:"food",us:"Popsicle",uk:"ice lolly",zh:"冰棍",ipa:"/aɪs ˈlɒli/",pos:"n.",ex:"An ice lolly on a hot day.",exzh:"大热天来根冰棍。",tip:""},
+{c:"transport",us:"subway",uk:"the Tube",zh:"地铁",ipa:"/ðə tjuːb/",pos:"n.",ex:"Take the Tube to Oxford Circus.",exzh:"坐地铁到牛津街。",tip:"伦敦人常说 the Tube；其他城市多用 underground。"},
+{c:"transport",us:"railroad",uk:"railway",zh:"铁路",ipa:"/ˈreɪlweɪ/",pos:"n.",ex:"the British railway network",exzh:"英国铁路网",tip:""},
+{c:"transport",us:"one-way ticket",uk:"single",zh:"单程票",ipa:"/ˈsɪŋɡl/",pos:"n.",ex:"A single to Cambridge, please.",exzh:"一张到剑桥的单程票。",tip:""},
+{c:"transport",us:"round-trip ticket",uk:"return",zh:"往返票",ipa:"/rɪˈtɜːn/",pos:"n.",ex:"A return to London, please.",exzh:"一张到伦敦的往返票。",tip:""},
+{c:"transport",us:"trunk (of a car)",uk:"boot",zh:"后备箱",ipa:"/buːt/",pos:"n.",ex:"Put the bags in the boot.",exzh:"把包放进后备箱。",tip:""},
+{c:"transport",us:"hood (of a car)",uk:"bonnet",zh:"引擎盖",ipa:"/ˈbɒnɪt/",pos:"n.",ex:"Pop the bonnet.",exzh:"把引擎盖打开。",tip:""},
+{c:"transport",us:"windshield",uk:"windscreen",zh:"挡风玻璃",ipa:"/ˈwɪndskriːn/",pos:"n.",ex:"The windscreen is frozen.",exzh:"挡风玻璃结冰了。",tip:""},
+{c:"transport",us:"truck",uk:"lorry",zh:"卡车",ipa:"/ˈlɒri/",pos:"n.",ex:"A lorry blocked the road.",exzh:"一辆卡车挡住了路。",tip:""},
+{c:"transport",us:"motorcycle",uk:"motorbike",zh:"摩托车",ipa:"/ˈməʊtəbaɪk/",pos:"n.",ex:"He rides a motorbike.",exzh:"他骑摩托车。",tip:""},
+{c:"transport",us:"sidewalk",uk:"pavement",zh:"人行道",ipa:"/ˈpeɪvmənt/",pos:"n.",ex:"Don't cycle on the pavement.",exzh:"别在人行道上骑车。",tip:""},
+{c:"transport",us:"crosswalk",uk:"zebra crossing",zh:"斑马线",ipa:"/ˌzebrə ˈkrɒsɪŋ/",pos:"n.",ex:"Use the zebra crossing.",exzh:"走斑马线。",tip:""},
+{c:"transport",us:"gas station",uk:"petrol station",zh:"加油站",ipa:"/ˈpetrəl ˈsteɪʃn/",pos:"n.",ex:"There's a petrol station ahead.",exzh:"前面有个加油站。",tip:""},
+{c:"transport",us:"parking lot",uk:"car park",zh:"停车场",ipa:"/kɑː pɑːk/",pos:"n.",ex:"The car park is full.",exzh:"停车场满了。",tip:""},
+{c:"transport",us:"highway",uk:"motorway",zh:"高速公路",ipa:"/ˈməʊtəweɪ/",pos:"n.",ex:"the M1 motorway",exzh:"M1 高速公路",tip:""},
+{c:"home",us:"apartment",uk:"flat",zh:"公寓",ipa:"/flæt/",pos:"n.",ex:"She rents a flat in Leeds.",exzh:"她在利兹租了套公寓。",tip:""},
+{c:"home",us:"closet",uk:"wardrobe",zh:"衣柜",ipa:"/ˈwɔːdrəʊb/",pos:"n.",ex:"Hang it in the wardrobe.",exzh:"挂进衣柜。",tip:""},
+{c:"home",us:"faucet",uk:"tap",zh:"水龙头",ipa:"/tæp/",pos:"n.",ex:"Turn the tap off.",exzh:"关掉水龙头。",tip:""},
+{c:"home",us:"yard",uk:"garden",zh:"院子",ipa:"/ˈɡɑːdn/",pos:"n.",ex:"The kids are playing in the garden.",exzh:"孩子们在院子里玩。",tip:"英式 garden 就是美式的 yard。"},
+{c:"home",us:"first floor",uk:"ground floor",zh:"一楼",ipa:"/ɡraʊnd flɔː/",pos:"n.",ex:"The shop is on the ground floor.",exzh:"商店在一楼。",tip:"注意：英式 ground floor 是一楼，first floor 是二楼！"},
+{c:"home",us:"elevator",uk:"lift",zh:"电梯",ipa:"/lɪft/",pos:"n.",ex:"Take the lift to the second floor.",exzh:"乘电梯到二楼。",tip:""},
+{c:"home",us:"trash can",uk:"bin",zh:"垃圾桶",ipa:"/bɪn/",pos:"n.",ex:"Put it in the bin.",exzh:"扔进垃圾桶。",tip:""},
+{c:"home",us:"garbage",uk:"rubbish",zh:"垃圾",ipa:"/ˈrʌbɪʃ/",pos:"n.",ex:"Take the rubbish out.",exzh:"去倒垃圾。",tip:""},
+{c:"home",us:"drapes",uk:"curtains",zh:"窗帘",ipa:"/ˈkɜːtnz/",pos:"n.",ex:"Close the curtains.",exzh:"拉上窗帘。",tip:""},
+{c:"home",us:"stove",uk:"cooker",zh:"炉灶",ipa:"/ˈkʊkə/",pos:"n.",ex:"The cooker needs cleaning.",exzh:"炉灶该擦了。",tip:""},
+{c:"home",us:"diaper",uk:"nappy",zh:"尿布",ipa:"/ˈnæpi/",pos:"n.",ex:"Change the baby's nappy.",exzh:"给宝宝换尿布。",tip:""},
+{c:"clothes",us:"pants",uk:"trousers",zh:"裤子",ipa:"/ˈtraʊzəz/",pos:"n.",ex:"a pair of trousers",exzh:"一条裤子",tip:"注意：pants 在英式英语里指内裤，千万别说错！"},
+{c:"clothes",us:"sweater",uk:"jumper",zh:"毛衣",ipa:"/ˈdʒʌmpə/",pos:"n.",ex:"a cosy jumper",exzh:"一件暖和的毛衣",tip:""},
+{c:"clothes",us:"vest",uk:"waistcoat",zh:"马甲",ipa:"/ˈweɪstkəʊt/",pos:"n.",ex:"a waistcoat with the suit",exzh:"配西装的马甲",tip:""},
+{c:"clothes",us:"sneakers",uk:"trainers",zh:"运动鞋",ipa:"/ˈtreɪnəz/",pos:"n.",ex:"a new pair of trainers",exzh:"一双新运动鞋",tip:""},
+{c:"clothes",us:"rain boots",uk:"wellies",zh:"雨靴",ipa:"/ˈweliz/",pos:"n.",ex:"Put your wellies on.",exzh:"穿上雨靴。",tip:"全称 Wellington boots。"},
+{c:"clothes",us:"underwear",uk:"pants",zh:"内裤",ipa:"/pænts/",pos:"n.",ex:"a pack of pants",exzh:"一包内裤",tip:"呼应上一条：pants 是内裤，所以裤子要说 trousers。"},
+{c:"clothes",us:"suspenders",uk:"braces",zh:"背带",ipa:"/ˈbreɪsɪz/",pos:"n.",ex:"He wore braces with his suit.",exzh:"他西装配了背带。",tip:"美式 suspenders 在英式指吊袜带，千万别混！"},
+{c:"clothes",us:"purse",uk:"handbag",zh:"手提包",ipa:"/ˈhændbæɡ/",pos:"n.",ex:"a leather handbag",exzh:"一只皮手包",tip:""},
+{c:"daily",us:"cell phone",uk:"mobile",zh:"手机",ipa:"/ˈməʊbaɪl/",pos:"n.",ex:"What's your mobile number?",exzh:"你手机号多少？",tip:""},
+{c:"daily",us:"mail",uk:"post",zh:"邮件；邮寄",ipa:"/pəʊst/",pos:"n.",ex:"Did the post arrive?",exzh:"邮件到了吗？",tip:"作动词：I'll post it tomorrow.（明天寄出。）"},
+{c:"daily",us:"mailbox",uk:"postbox",zh:"邮筒",ipa:"/ˈpəʊstbɒks/",pos:"n.",ex:"the red postbox",exzh:"红色邮筒",tip:"英国标志性的红色邮筒。"},
+{c:"daily",us:"zip code",uk:"postcode",zh:"邮编",ipa:"/ˈpəʊstkəʊd/",pos:"n.",ex:"What's the postcode?",exzh:"邮编是多少？",tip:""},
+{c:"daily",us:"vacation",uk:"holiday",zh:"假期",ipa:"/ˈhɒlədeɪ/",pos:"n.",ex:"We're on holiday next week.",exzh:"我们下周休假。",tip:""},
+{c:"daily",us:"line (queue)",uk:"queue",zh:"排队",ipa:"/kjuː/",pos:"n.",ex:"Join the queue.",exzh:"去排队。",tip:"动词常用 queue up。"},
+{c:"daily",us:"drugstore",uk:"chemist",zh:"药店",ipa:"/ˈkemɪst/",pos:"n.",ex:"Get it from the chemist.",exzh:"去药店买。",tip:""},
+{c:"daily",us:"Band-Aid",uk:"plaster",zh:"创可贴",ipa:"/ˈplɑːstə/",pos:"n.",ex:"You need a plaster on that.",exzh:"那上面得贴个创可贴。",tip:""},
+{c:"daily",us:"flashlight",uk:"torch",zh:"手电筒",ipa:"/tɔːtʃ/",pos:"n.",ex:"a torch",exzh:"一只手电",tip:"torch 本义是火炬。"},
+{c:"daily",us:"check mark",uk:"tick",zh:"打勾",ipa:"/tɪk/",pos:"n.",ex:"Put a tick in the box.",exzh:"在方框里打勾。",tip:""},
+{c:"daily",us:"soccer",uk:"football",zh:"足球",ipa:"/ˈfʊtbɔːl/",pos:"n.",ex:"a football match",exzh:"一场足球赛",tip:"在英国说 soccer 会被侧目。"},
+{c:"school",us:"math",uk:"maths",zh:"数学",ipa:"/mæθs/",pos:"n.",ex:"I love maths.",exzh:"我爱数学。",tip:"英式恒用复数形式 maths。"},
+{c:"school",us:"eraser",uk:"rubber",zh:"橡皮",ipa:"/ˈrʌbə/",pos:"n.",ex:"Can I borrow your rubber?",exzh:"橡皮借我用下？",tip:"注意：rubber 还有别的意思，成年人之间慎用！"},
+{c:"school",us:"recess",uk:"break",zh:"课间休息",ipa:"/breɪk/",pos:"n.",ex:"See you at break.",exzh:"课间见。",tip:""},
+{c:"school",us:"principal",uk:"headteacher",zh:"校长",ipa:"/ˌhedˈtiːtʃə/",pos:"n.",ex:"the headteacher",exzh:"校长",tip:""},
+{c:"school",us:"grade (school year)",uk:"year",zh:"年级",ipa:"/jɪə/",pos:"n.",ex:"He's in Year 10.",exzh:"他上十年级。",tip:""},
+{c:"school",us:"schedule",uk:"timetable",zh:"课程表",ipa:"/ˈtaɪmteɪbl/",pos:"n.",ex:"Check your timetable.",exzh:"查一下课程表。",tip:""},
+{c:"school",us:"semester",uk:"term",zh:"学期",ipa:"/tɜːm/",pos:"n.",ex:"the autumn term",exzh:"秋季学期",tip:"英国中小学一年分三个 term。"},
+{c:"school",us:"fall",uk:"autumn",zh:"秋天",ipa:"/ˈɔːtəm/",pos:"n.",ex:"in autumn",exzh:"在秋天",tip:""},
+{c:"expr",us:"What's up?",uk:"You alright?",zh:"最近咋样？",ipa:"/jʊ ɔːlˈraɪt/",pos:"phr.",ex:"Alright, mate?",exzh:"嘿，伙计，最近咋样？",tip:"打招呼用语，不是真问你身体好不好，回一句 Alright! 就行。"},
+{c:"expr",us:"awesome",uk:"brilliant",zh:"太棒了",ipa:"/ˈbrɪliənt/",pos:"adj.",ex:"That's brilliant!",exzh:"太棒了！",tip:"英式万能赞美词。"},
+{c:"expr",us:"no problem",uk:"no worries",zh:"没关系",ipa:"/nəʊ ˈwʌriz/",pos:"phr.",ex:"No worries, mate.",exzh:"没事儿，伙计。",tip:""},
+{c:"expr",us:"buddy",uk:"mate",zh:"伙计",ipa:"/meɪt/",pos:"n.",ex:"Thanks, mate.",exzh:"谢了，伙计。",tip:""},
+{c:"expr",us:"I'm exhausted.",uk:"I'm knackered.",zh:"我累瘫了",ipa:"/aɪm ˈnækəd/",pos:"adj.",ex:"I'm absolutely knackered.",exzh:"我累瘫了。",tip:"口语词，正式场合慎用。"},
+{c:"expr",us:"great",uk:"lovely",zh:"很好",ipa:"/ˈlʌvli/",pos:"adj.",ex:"That's lovely.",exzh:"真好。",tip:"英国人什么都夸 lovely。"},
+{c:"expr",us:"That sucks.",uk:"That's rubbish.",zh:"真糟糕",ipa:"/ðæts ˈrʌbɪʃ/",pos:"phr.",ex:"The weather's rubbish today.",exzh:"今天这天气真糟。",tip:""},
+{c:"expr",us:"bathroom",uk:"the loo",zh:"洗手间",ipa:"/luː/",pos:"n.",ex:"Where's the loo?",exzh:"洗手间在哪？",tip:"口语说法。"},
+{c:"expr",us:"Thank you.",uk:"Cheers!",zh:"谢谢",ipa:"/tʃɪəz/",pos:"int.",ex:"Cheers for that!",exzh:"谢啦！",tip:"cheers 还可表示干杯和再见，一词三用。"},
+{c:"expr",us:"I'm fine.",uk:"I'm alright.",zh:"我挺好",ipa:"/aɪm ɔːlˈraɪt/",pos:"phr.",ex:"How are you? I'm alright.",exzh:"你好吗？我挺好。",tip:"说 I'm fine 略显美式。"},
+{c:"expr",us:"take a nap",uk:"have a kip",zh:"小睡",ipa:"/hæv ə kɪp/",pos:"phr.",ex:"I need a quick kip.",exzh:"我得赶紧眯一会儿。",tip:""},
+{c:"expr",us:"drunk",uk:"pissed",zh:"喝醉了",ipa:"/pɪst/",pos:"adj.",ex:"He got pissed last night.",exzh:"他昨晚喝大了。",tip:"注意：美式 pissed 是“生气”，英美互译要小心！"},
+{c:"expr",us:"crazy",uk:"bonkers",zh:"疯狂的",ipa:"/ˈbɒŋkəz/",pos:"adj.",ex:"You're bonkers!",exzh:"你疯了吧！",tip:"玩笑口吻。"},
+{c:"expr",us:"I'm just kidding.",uk:"I'm only joking.",zh:"开玩笑的",ipa:"/aɪm ˈəʊnli ˈdʒəʊkɪŋ/",pos:"phr.",ex:"I'm only joking!",exzh:"我开玩笑的！",tip:""},
+{c:"expr",us:"That's expensive.",uk:"That's a bit dear.",zh:"挺贵的",ipa:"/ðæts ə bɪt dɪə/",pos:"phr.",ex:"It's a bit dear, isn't it?",exzh:"有点小贵哈？",tip:"英式委婉说法。"},
+{c:"expr",us:"I'm full.",uk:"I'm stuffed.",zh:"吃撑了",ipa:"/aɪm stʌft/",pos:"phr.",ex:"I can't move, I'm stuffed.",exzh:"动不了了，吃撑了。",tip:""},
+{c:"expr",us:"scold",uk:"tell off",zh:"训斥",ipa:"/tel ɒf/",pos:"v.",ex:"He got told off.",exzh:"他挨训了。",tip:""},
+{c:"expr",us:"You did great!",uk:"You smashed it!",zh:"你太牛了",ipa:"/juː smæʃt ɪt/",pos:"phr.",ex:"You smashed that exam!",exzh:"那考试你考得太牛了！",tip:""},
+{c:"expr",us:"—",uk:"Fair enough.",zh:"有道理；行吧",ipa:"/feər ɪˈnʌf/",pos:"phr.",ex:"Fair enough, let's do it.",exzh:"行吧，那就这么办。",tip:"表示认同或勉强接受。"},
+{c:"expr",us:"I messed up.",uk:"I cocked it up.",zh:"搞砸了",ipa:"/aɪ kɒkt ɪt ʌp/",pos:"phr.",ex:"Sorry, I cocked it up.",exzh:"抱歉，我搞砸了。",tip:"略粗俗，熟人之间用。"}
+];
+
+const $=s=>document.querySelector(s);
+let cat="all",q="";
+let learned=new Set(JSON.parse(localStorage.getItem("bb_learned")||"[]"));
+function save(){localStorage.setItem("bb_learned",JSON.stringify([...learned]));}
+
+function speak(text){
+  try{
+    speechSynthesis.cancel();
+    const u=new SpeechSynthesisUtterance(text);
+    u.lang="en-GB";u.rate=0.92;
+    const vs=speechSynthesis.getVoices();
+    const v=vs.find(v=>v.lang&&v.lang.toLowerCase().startsWith("en-gb"))
+           ||vs.find(v=>v.lang&&v.lang.toLowerCase().startsWith("en"));
+    if(v)u.voice=v;
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+
+function filteredIdx(){
+  const s=q.trim().toLowerCase();
+  return DATA.map((d,i)=>({d,i})).filter(({d})=>{
+    if(cat!=="all"&&d.c!==cat)return false;
+    if(!s)return true;
+    return (d.zh+" "+d.us+" "+d.uk).toLowerCase().includes(s);
+  });
+}
+
+function cardHTML({d,i}){
+  const got=learned.has(d.uk);
+  return `<article class="card">
+    <div class="topline"><span class="uk">${d.uk}</span><span class="pos">${d.pos}</span><button class="say" data-say="${d.uk}">朗读</button></div>
+    <div class="ipa">${d.ipa}</div>
+    <div class="zh">${d.zh}<span class="us">美式：${d.us}</span></div>
+    <div class="ex">“${d.ex}”<button class="say" data-say="${d.ex}">朗读例句</button><div class="exzh">${d.exzh}</div></div>
+    ${d.tip?`<div class="tip">${d.tip}</div>`:""}
+    <button class="learn${got?" got":""}" data-learn="${i}">${got?"已掌握 ✓":"记住了"}</button>
+  </article>`;
+}
+
+function render(){
+  const list=filteredIdx();
+  $("#count").textContent=`共 ${list.length} 个词条 · 已掌握 ${learned.size} 个`;
+  $("#cards").innerHTML=list.map(cardHTML).join("")||`<p class="empty">没找到，换个词试试～</p>`;
+}
+
+function switchTab(id){
+  ["sec-search","sec-flash","sec-me"].forEach(s=>$("#"+s).hidden=(s!==id));
+  document.querySelectorAll(".tabbar button").forEach(b=>b.classList.toggle("on",b.dataset.tab===id));
+  if(id==="sec-me")renderMe();
+}
+
+/* 单词卡 */
+let cur=-1,flipped=false;
+function poolIdx(){
+  const p=DATA.map((d,i)=>i).filter(i=>!learned.has(DATA[i].uk));
+  return p.length?p:DATA.map((d,i)=>i);
+}
+function newFlash(){
+  const p=poolIdx();
+  cur=p[Math.floor(Math.random()*p.length)];
+  flipped=false;paintFlash();
+}
+function paintFlash(){
+  const d=DATA[cur];
+  $("#fInner").innerHTML=flipped
+    ?`<div class="f-uk">${d.uk}</div><div class="ipa" style="margin-top:6px">${d.ipa}</div><div class="f-ex">“${d.ex}”<br><span style="color:#999;font-size:13px">${d.exzh}</span></div><div style="margin-top:10px"><button class="say" data-say="${d.uk}">朗读</button><button class="say" data-say="${d.ex}">朗读例句</button></div>`
+    :`<div class="f-zh">${d.zh}</div><div class="f-hint">美式：${d.us} · ${CATS[d.c]}<br>点卡片翻面，看英式说法</div>`;
+  $("#fCount").textContent=`剩余未掌握 ${DATA.length-learned.size} / ${DATA.length}`;
+}
+
+/* 我的进度 */
+function renderMe(){
+  $("#mTotal").textContent=DATA.length;
+  $("#mGot").textContent=learned.size;
+  const pct=Math.round(learned.size/DATA.length*100);
+  $("#mBar").style.width=pct+"%";
+  $("#mPct").textContent=pct+"%";
+  $("#learnedList").innerHTML=[...learned].map(uk=>{
+    const d=DATA.find(x=>x.uk===uk);
+    return d?`<div class="lrow"><span><b>${d.uk}</b> · ${d.zh}</span><button data-unlearn="${d.uk}">取消</button></div>`:"";
+  }).join("")||`<p class="empty">还没有掌握的词条，去单词卡里记几个吧～</p>`;
+}
+
+document.addEventListener("click",e=>{
+  const say=e.target.closest("[data-say]");
+  if(say){speak(say.dataset.say);return;}
+  const learn=e.target.closest("[data-learn]");
+  if(learn){const d=DATA[+learn.dataset.learn];learned.has(d.uk)?learned.delete(d.uk):learned.add(d.uk);save();render();return;}
+  const tab=e.target.closest("[data-tab]");
+  if(tab){switchTab(tab.dataset.tab);return;}
+  const chip=e.target.closest("[data-chip]");
+  if(chip){cat=chip.dataset.chip;document.querySelectorAll(".chip").forEach(c=>c.classList.toggle("on",c===chip));render();return;}
+  const un=e.target.closest("[data-unlearn]");
+  if(un){learned.delete(un.dataset.unlearn);save();render();renderMe();return;}
+});
+
+$("#flash").addEventListener("click",()=>{flipped=!flipped;paintFlash();});
+$("#btnHard").addEventListener("click",ev=>{ev.stopPropagation();newFlash();});
+$("#btnNext").addEventListener("click",ev=>{ev.stopPropagation();newFlash();});
+$("#btnKnow").addEventListener("click",ev=>{ev.stopPropagation();learned.add(DATA[cur].uk);save();newFlash();render();});
+$("#btnReset").addEventListener("click",()=>{if(confirm("确定清空已掌握记录吗？")){learned.clear();save();render();renderMe();newFlash();}});
+$("#q").addEventListener("input",e=>{q=e.target.value;render();});
+
+/* init */
+$("#chips").innerHTML=Object.entries(CATS).map(([k,v])=>`<button class="chip${k==="all"?" on":""}" data-chip="${k}">${v}</button>`).join("");
+try{speechSynthesis.getVoices();}catch(e){}
+render();renderMe();newFlash();
+</script>
+</body>
+</html>
